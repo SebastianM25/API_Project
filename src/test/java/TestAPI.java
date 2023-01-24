@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class TestAPI {
 
-    private static String requestBody="{\n" +
+    private static final String requestBody="{\n" +
             "  \"id\": 350,\n" +
             "  \"category\": {\n" +
             "    \"id\": 3,\n" +
