@@ -68,5 +68,16 @@ public class test {
 
         Assert.assertEquals(response.statusCode(),200);
     }
+
+    @Test
+    public void deletePet(){
+        Response response= given()
+                .header("Content-Type","application/json")
+                .and()
+                .delete("/pet/350")
+                .then()
+                .extract().response();
+        Assert.assertEquals(response.statusCode(),200);
+    }
 }
 
