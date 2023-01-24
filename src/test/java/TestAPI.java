@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
 
-public class test {
+public class TestAPI {
 
     private static String requestBody="{\n" +
             "  \"id\": 350,\n" +
@@ -66,6 +66,17 @@ public class test {
                 .then()
                 .extract().response();
 
+        Assert.assertEquals(response.statusCode(),200);
+    }
+
+    @Test
+    public void deletePet(){
+        Response response= given()
+                .header("Content-Type","application/json")
+                .and()
+                .delete("/pet/350")
+                .then()
+                .extract().response();
         Assert.assertEquals(response.statusCode(),200);
     }
 }
