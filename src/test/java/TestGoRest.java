@@ -1,47 +1,44 @@
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
+public class TestGoRest {
 
-public class TestAPI {
+
 
     private static final String requestBody="{\n" +
-            "  \"id\": 350,\n" +
-            "  \"category\": {\n" +
-            "    \"id\": 3,\n" +
-            "    \"name\": \"Pet GOLD\"\n" +
-            "  },\n" +
-            "  \"name\": \"doggie\",\n" +
-            "  \"photoUrls\": [\n" +
-            "    \"https://wallpaper.mob.org/image/3d-babochka-listya-krilya-kontrast-128113.html\"\n" +
-            "  ],\n" +
-            "  \"tags\": [\n" +
-            "    {\n" +
-            "      \"id\": 3,\n" +
-            "      \"name\": \"string\"\n" +
-            "    }\n" +
-            "  ],\n" +
-            "  \"status\": \"available\"\n" +
+            "  \"id\": 93019,\n" +
+            "  \"name\": \"SebaTest\",\n" +
+            "  \"email\": \"sebbtest6@block.io\",\n" +
+            "  \"gender\": \"male\",\n" +
+            "  \"status\": \"inactive\"\n" +
             "}";
 
     @BeforeTest
     public void setup(){
-        RestAssured.baseURI="https://petstore.swagger.io/v2";
+        RestAssured.baseURI="https://gorest.co.in/public/v2/users";
+        RequestSpecification request= RestAssured.given();
     }
+    @BeforeTest
+    public void auth(){
 
+        String authToken="0c9c40d945079e2b1f6763d190da596ef3a71d334f79f07902dce75df50ccc99";
+    }
     @Test
     public void getPet(){
 
         Response response= given()
                 .contentType(ContentType.JSON)
-                .param("petId","350")
+                .param("users","178120")
                 .when()
-                .get("/pet/350")
+                .get("/178120")
                 .then()
                 .extract().response();
 
@@ -62,22 +59,10 @@ public class TestAPI {
                 .and()
                 .body(requestBody)
                 .when()
-                .post("/pet")
+                .post(baseURI)
                 .then()
                 .extract().response();
 
-        Assert.assertEquals(response.statusCode(),200);
-    }
-
-    @Test
-    public void deletePet(){
-        Response response= given()
-                .header("Content-Type","application/json")
-                .and()
-                .delete("/pet/350")
-                .then()
-                .extract().response();
         Assert.assertEquals(response.statusCode(),200);
     }
 }
-
